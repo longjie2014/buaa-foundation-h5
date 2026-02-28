@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的 - 北航教育基金会</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #f5f5f5; }
+        
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: #004098;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            z-index: 100;
+        }
+        
+        .content {
+            padding: 70px 20px 80px;
+        }
+        
+        .user-card {
+            background: linear-gradient(135deg, #004098 0%, #0066cc 100%);
+            border-radius: 10px;
+            padding: 20px;
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        .user-card h2 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .user-card p {
+            opacity: 0.9;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-num {
+            font-size: 24px;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        .menu-list {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            text-decoration: none;
+            color: #333;
+        }
+        
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        
+        .menu-icon {
+            font-size: 20px;
+            margin-right: 15px;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .menu-text {
+            flex: 1;
+            font-size: 15px;
+        }
+        
+        .menu-arrow {
+            color: #999;
+        }
+        
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: white;
+            display: flex;
+            border-top: 1px solid #eee;
+            z-index: 100;
+        }
+        
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #999;
+            font-size: 12px;
+        }
+        
+        .nav-item.active {
+            color: #004098;
+        }
+        
+        .nav-icon {
+            font-size: 24px;
+            margin-bottom: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">我的</div>
+    
+    <div class="content">
+        <div class="user-card">
+            <h2>北航校友</h2>
+            <p>2008级 · 计算机学院</p>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-num">3</span>
+                    <span class="stat-label">我的捐赠</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num">5</span>
+                    <span class="stat-label">我的订单</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num">2</span>
+                    <span class="stat-label">我的活动</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num">128</span>
+                    <span class="stat-label">我的积分</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="menu-list">
+            <a href="orders.html" class="menu-item">
+                <span class="menu-icon">📦</span>
+                <span class="menu-text">我的订单</span>
+                <span class="menu-arrow">›</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="menu-icon">💝</span>
+                <span class="menu-text">捐赠记录</span>
+                <span class="menu-arrow">›</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="menu-icon">📅</span>
+                <span class="menu-text">活动报名</span>
+                <span class="menu-arrow">›</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="menu-icon">📍</span>
+                <span class="menu-text">收货地址</span>
+                <span class="menu-arrow">›</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="menu-icon">⚙️</span>
+                <span class="menu-text">设置</span>
+                <span class="menu-arrow">›</span>
+            </a>
+        </div>
+    </div>
+    
+    <div class="bottom-nav">
+        <a href="test-nav.html" class="nav-item">
+            <span class="nav-icon">🏠</span>
+            <span>首页</span>
+        </a>
+        <a href="test-store.html" class="nav-item">
+            <span class="nav-icon">🛍️</span>
+            <span>文创</span>
+        </a>
+        <a href="test-activities.html" class="nav-item">
+            <span class="nav-icon">📅</span>
+            <span>活动</span>
+        </a>
+        <a href="test-my.html" class="nav-item active">
+            <span class="nav-icon">👤</span>
+            <span>我的</span>
+        </a>
+    </div>
+</body>
+</html>

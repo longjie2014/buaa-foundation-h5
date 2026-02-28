@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北航教育基金会 - 测试</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #f5f5f5; }
+        
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: #004098;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            z-index: 100;
+        }
+        
+        .content {
+            padding: 70px 20px 80px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .card h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .card p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: white;
+            display: flex;
+            border-top: 1px solid #eee;
+            z-index: 100;
+        }
+        
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #999;
+            font-size: 12px;
+        }
+        
+        .nav-item.active {
+            color: #004098;
+        }
+        
+        .nav-icon {
+            font-size: 24px;
+            margin-bottom: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">北航教育基金会</div>
+    
+    <div class="content">
+        <div class="card">
+            <h3>🏠 首页</h3>
+            <p>这是首页内容，使用纯HTML导航</p>
+        </div>
+        
+        <div class="card">
+            <h3>💝 我要捐赠</h3>
+            <p>点击下方底部导航切换到其他页面</p>
+        </div>
+        
+        <div class="card">
+            <h3>🛍️ 文创商城</h3>
+            <p>测试导航是否正常工作</p>
+        </div>
+        
+        <div class="card">
+            <h3>📅 校友活动</h3>
+            <p>如果此行显示，说明页面已更新</p>
+        </div>
+    </div>
+    
+    <div class="bottom-nav">
+        <a href="test-nav.html" class="nav-item active">
+            <span class="nav-icon">🏠</span>
+            <span>首页</span>
+        </a>
+        <a href="test-store.html" class="nav-item">
+            <span class="nav-icon">🛍️</span>
+            <span>文创</span>
+        </a>
+        <a href="test-activities.html" class="nav-item">
+            <span class="nav-icon">📅</span>
+            <span>活动</span>
+        </a>
+        <a href="test-my.html" class="nav-item">
+            <span class="nav-icon">👤</span>
+            <span>我的</span>
+        </a>
+    </div>
+</body>
+</html>
