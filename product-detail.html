@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>商品详情 - 北航教育基金会</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@4/lib/index.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="app">
+        <van-nav-bar left-arrow @click-left="goBack" fixed placeholder>
+            <template #title>商品详情</template>
+        </van-nav-bar>
+        
+        <!-- 商品图片轮播 -->
+        <van-swipe class="product-gallery" :autoplay="3000">
+            <van-swipe-item v-for="(img, index) in images" :key="index">
+                <van-image :src="img" fit="contain" class="gallery-img"></van-image>
+            </van-swipe-item>
+        </van-swipe>
+        
+        <div class="product-info-section">
+            <!-- 价格和标题 -->
+            <div class="product-header">
+                <div class="price-row">
+                    <span class="price-symbol">¥</span>
+                    <span class="price-value">168</span>
+                    <span class="price-original">¥198</span>
+                </div>
+                <h1>北航纪念卫衣</h1>
+                <div class="product-tags">
+                    <van-tag type="danger">热销</van-tag>
+                    <van-tag type="success">新品</van-tag>
+                    <van-tag plain>已售 500+</van-tag>
+                </div>
+            </div>
+            
+            <van-divider></van-divider>
+            
+            <!-- 规格选择 -->
+            <div class="sku-section">
+                <h3>选择规格</h3>
+                
+                <div class="sku-item">
+                    <label>颜色</label>
+                    <div class="sku-options">
+                        <van-button v-for="color in colors" :key="color" 
+                            size="small" 
+                            :type="selectedColor === color ? 'primary' : 'default'"
+                            @click="selectedColor = color"
+                            class="sku-btn"
+                        >{{ color }}</van-button>
+                    </div>
+                </div>
+                
+                <div class="sku-item">
+                    <label>尺码</label>
+                    <div class="sku-options">
+                        <van-button v-for="size in sizes" :key="size" 
+                            size="small" 
+                            :type="selectedSize === size ? 'primary' : 'default'"
+                            @click="selectedSize = size"
+                            class="sku-btn"
+                        >{{ size }}</van-button>
+                    </div>
+                </div>
+                
+                <div class="sku-item">
+                    <label>数量</label>
+                    <van-stepper v-model="quantity" min="1" max="99"></van-stepper>
+                </div>
+            </div>
+            
+            <van-divider></van-divider>
+            
+            <!-- 商品详情 -->
+            <div class="product-desc">
+                <h3>商品详情</h3>
+                <van-image src="https://picsum.photos/400/300?random=10" fit="cover"></van-image>
+                <p>北航纪念卫衣，采用优质棉质面料，舒适透气。胸前印有北航校徽，彰显北航精神。适合日常穿着，也是送给校友的精美礼品。</p>
+                
+                <h4>商品参数</h4>
+                <van-cell-group>
+                    <van-cell title="材质" value="100%纯棉"></van-cell>
+                    <van-cell title="版型" value="宽松版型"></van-cell>
+                    <van-cell title="产地" value="中国"></van-cell>
+                    <van-cell title="发货" value="48小时内发货"></van-cell>
+                </van-cell-group>
+            </div>
+        </div>
+        
+        <!-- 底部操作栏 -->
+        <van-action-bar>
+            <van-action-bar-icon icon="service-o" text="客服" @click="contact"></van-action-bar-icon>
+            <van-action-bar-icon icon="cart-o" text="购物车" @click="goCart"></van-action-bar-icon>
+            <van-action-bar-button type="warning" text="加入购物车" @click="addCart"></van-action-bar-button>
+            <van-action-bar-button type="danger" text="立即购买" @click="buyNow"></van-action-bar-button>
+        </van-action-bar>
+    </div>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vant@4/lib/vant.min.js"></script>
+    <script>
+        const { createApp } = Vue;
+        createApp({
+            data() {
+                return {
+                    images: [
+                        "https://picsum.photos/400/400?random=1",
+                        "https://picsum.photos/400/400?random=2",
+                        "https://picsum.photos/400/400?random=3"
+                    ],
+                    colors: ["红色", "蓝色", "黑色", "白色"],
+                    sizes: ["S", "M", "L", "XL", "XXL"],
+                    selectedColor: "蓝色",
+                    selectedSize: "L",
+                    quantity: 1
+                };
+            },
+            methods: {
+                goBack() {
+                    history.back();
+                },
+                contact() {
+                    vant.Toast('联系客服');
+                },
+                goCart() {
+                    vant.Toast('跳转购物车');
+                },
+                addCart() {
+                    vant.Toast('已加入购物车');
+                },
+                buyNow() {
+                    vant.Toast('跳转结算页面');
+                }
+            }
+        }).use(vant).mount('#app');
+    </script>
+</body>
+</html>
