@@ -17,37 +17,15 @@
         
         <!-- 搜索栏 -->
         <div class="search-bar">
-            <van-search v-model="searchValue" placeholder="搜索文创商品" shape="round"></van-search>
+            <van-search v-model="searchValue" placeholder="搜索文创商品" shape="round" @search="onSearch"></van-search>
         </div>
         
         <!-- 分类标签 -->
-        <van-tabs v-model="activeTab" sticky offset-top="46">
+        <van-tabs v-model="activeTab" sticky offset-top="46" @click-tab="onTabClick">
             <van-tab title="全部">
-                <product-list :products="allProducts"></product-list>
-            </van-tab>
-            <van-tab title="服饰">
-                <product-list :products="clothes"></product-list>
-            </van-tab>
-            <van-tab title="生活用品">
-                <product-list :products="daily"></product-list>
-            </van-tab>
-            <van-tab title="纪念品">
-                <product-list :products="souvenir"></product-list>
-            </van-tab>
-        </van-tabs>
-    </div>
-    
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vant@4/lib/vant.min.js"></script>
-    <script>
-        const { createApp, defineComponent } = Vue;
-        
-        const ProductList = defineComponent({
-            props: ['products'],
-            template: `
                 <div class="store-grid">
-                    <div v-for="product in products" :key="product.id" class="store-item" @click="viewDetail(product.id)">
-                        <van-image :src="product.image" fit="cover" class="store-img"></van-image>
+                    <div v-for="product in allProducts" :key="product.id" class="store-item" @click="viewProduct(product.id)">
+                        <van-image :src="product.image" fit="cover" class="store-img" />
                         <div class="store-info">
                             <h4>{{ product.name }}</h4>
                             <p class="store-price"><span class="currency">¥</span>{{ product.price }}</p>
@@ -57,20 +35,62 @@
                         </div>
                     </div>
                 </div>
-            `,
-            methods: {
-                viewDetail(id) {
-                    location.href = `product-detail.html?id=${id}`;
-                }
-            }
-        });
+            </van-tab>
+            <van-tab title="服饰">
+                <div class="store-grid">
+                    <div v-for="product in clothes" :key="product.id" class="store-item" @click="viewProduct(product.id)">
+                        <van-image :src="product.image" fit="cover" class="store-img" />
+                        <div class="store-info">
+                            <h4>{{ product.name }}</h4>
+                            <p class="store-price"><span class="currency">¥</span>{{ product.price }}</p>
+                        </div>
+                    </div>
+                </div>
+            </van-tab>
+            <van-tab title="生活用品">
+                <div class="store-grid">
+                    <div v-for="product in daily" :key="product.id" class="store-item" @click="viewProduct(product.id)">
+                        <van-image :src="product.image" fit="cover" class="store-img" />
+                        <div class="store-info">
+                            <h4>{{ product.name }}</h4>
+                            <p class="store-price"><span class="currency">¥</span>{{ product.price }}</p>
+                        </div>
+                    </div>
+                </div>
+            </van-tab>
+            <van-tab title="纪念品">
+                <div class="store-grid">
+                    <div v-for="product in souvenir" :key="product.id" class="store-item" @click="viewProduct(product.id)">
+                        <van-image :src="product.image" fit="cover" class="store-img" />
+                        <div class="store-info">
+                            <h4>{{ product.name }}</h4>
+                            <p class="store-price"><span class="currency">¥</span>{{ product.price }}</p>
+                        </div>
+                    </div>
+                </div>
+            </van-tab>
+        </van-tabs>
+
+        <!-- 底部 Tabbar -->
+        <van-tabbar v-model="activeTabBar" fixed placeholder>
+            <van-tabbar-item icon="home-o" @click="goPage('index')">首页</van-tabbar-item>
+            <van-tabbar-item icon="shop-o" @click="goPage('store')">文创</van-tabbar-item>
+            <van-tabbar-item icon="calendar-o" @click="goPage('activities')">活动</van-tabbar-item>
+            <van-tabbar-item icon="user-o" @click="goPage('my')">我的</van-tabbar-item>
+        </van-tabbar>
+    </div>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vant@4/lib/vant.min.js"></script>
+    <script>
+        const { createApp } = Vue;
         
         createApp({
-            components: { ProductList },
             data() {
                 return {
                     searchValue: '',
                     activeTab: 0,
+                    activeTabBar: 1,
                     allProducts: [
                         { id: 1, name: "北航纪念卫衣", price: 168, tags: ["热销", "新品"], image: "https://picsum.photos/200/200?random=1" },
                         { id: 2, name: "北航马克杯", price: 58, tags: ["经典"], image: "https://picsum.photos/200/200?random=2" },
@@ -103,9 +123,29 @@
                 },
                 goCart() {
                     vant.Toast('购物车功能开发中');
+                },
+                onSearch() {
+                    vant.Toast(`搜索: ${this.searchValue}`);
+                },
+                onTabClick() {
+                    console.log('Tab switched');
+                },
+                viewProduct(id) {
+                    location.href = `product-detail.html?id=${id}`;
+                },
+                goPage(page) {
+                    const pageMap = {
+                        'index': 'index.html',
+                        'store': 'store.html',
+                        'activities': 'activities.html',
+                        'my': 'my.html'
+                    };
+                    if (pageMap[page] && !location.href.includes(pageMap[page])) {
+                        location.href = pageMap[page];
+                    }
                 }
             }
-        }).use(vant).component('ProductList', ProductList).mount('#app');
+        }).use(vant).mount('#app');
     </script>
 </body>
 </html>

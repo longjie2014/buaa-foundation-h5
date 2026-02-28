@@ -14,22 +14,22 @@
             <div class="user-info">
                 <van-image round width="80" height="80" src="https://picsum.photos/100/100?random=1" class="avatar"></van-image>
                 <div class="user-text">
-                    <h2>北航校友</h2>
+                    <h2 @click="editProfile">北航校友</h2>
                     <p>2008级 · 计算机学院</p>
                 </div>
                 <van-icon name="setting-o" class="setting-icon" @click="goSetting"></van-icon>
             </div>
             
             <div class="user-stats">
-                <div class="stat-item">
+                <div class="stat-item" @click="goDonations">
                     <span class="stat-num">3</span>
                     <span class="stat-label">我的捐赠</span>
                 </div>
-                <div class="stat-item">
+                <div class="stat-item" @click="goOrders">
                     <span class="stat-num">5</span>
                     <span class="stat-label">我的订单</span>
                 </div>
-                <div class="stat-item">
+                <div class="stat-item" @click="goMyActivities">
                     <span class="stat-num">2</span>
                     <span class="stat-label">我的活动</span>
                 </div>
@@ -51,7 +51,7 @@
                 <van-cell title="捐赠记录" icon="records" is-link @click="goDonations">
                     <template #value>累计捐赠 ¥5,000</template>
                 </van-cell>
-                <van-cell title="活动报名" icon="calendar-o" is-link @click="goActivities"></van-cell>
+                <van-cell title="活动报名" icon="calendar-o" is-link @click="goMyActivities"></van-cell>
                 <van-cell title="收货地址" icon="location-o" is-link @click="goAddress"></van-cell>
             </van-cell-group>
         </div>
@@ -65,13 +65,13 @@
                 <van-cell title="关于我们" icon="info-o" is-link @click="goAbout"></van-cell>
             </van-cell-group>
         </div>
-        
+
         <!-- 底部 Tabbar -->
-        <van-tabbar v-model="activeTab" fixed placeholder route>
-            <van-tabbar-item icon="home-o" to="index.html">首页</van-tabbar-item>
-            <van-tabbar-item icon="shop-o" to="store.html">文创</van-tabbar-item>
-            <van-tabbar-item icon="calendar-o" to="activities.html">活动</van-tabbar-item>
-            <van-tabbar-item icon="user-o" to="my.html">我的</van-tabbar-item>
+        <van-tabbar v-model="activeTabBar" fixed placeholder>
+            <van-tabbar-item icon="home-o" @click="goPage('index')">首页</van-tabbar-item>
+            <van-tabbar-item icon="shop-o" @click="goPage('store')">文创</van-tabbar-item>
+            <van-tabbar-item icon="calendar-o" @click="goPage('activities')">活动</van-tabbar-item>
+            <van-tabbar-item icon="user-o" @click="goPage('my')">我的</van-tabbar-item>
         </van-tabbar>
     </div>
     
@@ -82,10 +82,13 @@
         createApp({
             data() {
                 return {
-                    activeTab: 3
+                    activeTabBar: 3
                 };
             },
             methods: {
+                editProfile() {
+                    vant.Toast('编辑个人资料');
+                },
                 goSetting() {
                     vant.Toast('设置页面');
                 },
@@ -95,7 +98,7 @@
                 goDonations() {
                     vant.Toast('捐赠记录');
                 },
-                goActivities() {
+                goMyActivities() {
                     vant.Toast('我的活动');
                 },
                 goAddress() {
@@ -112,6 +115,17 @@
                 },
                 goAbout() {
                     vant.Toast('关于我们');
+                },
+                goPage(page) {
+                    const pageMap = {
+                        'index': 'index.html',
+                        'store': 'store.html',
+                        'activities': 'activities.html',
+                        'my': 'my.html'
+                    };
+                    if (pageMap[page] && !location.href.includes(pageMap[page])) {
+                        location.href = pageMap[page];
+                    }
                 }
             }
         }).use(vant).mount('#app');

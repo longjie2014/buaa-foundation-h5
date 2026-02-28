@@ -5,22 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>北京航空航天大学教育基金会</title>
     <meta name="description" content="北京航空航天大学教育基金会 - 汇聚爱心，助力教育">
-    <!-- Vant CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@4/lib/index.css">
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
     <div id="app">
         <!-- 顶部导航 -->
-        <van-nav-bar
-            title="北航教育基金会"
-            left-text=""
-            left-arrow
-            @click-left="onClickLeft"
-            fixed
-            placeholder
-        >
+        <van-nav-bar title="北航教育基金会" fixed placeholder>
             <template #right>
                 <van-icon name="search" size="20" @click="onSearch" />
             </template>
@@ -28,25 +19,25 @@
 
         <!-- 轮播图 -->
         <van-swipe class="banner-swipe" :autoplay="3000" indicator-color="#004098">
-            <van-swipe-item>
+            <van-swipe-item @click="goBanner(0)">
                 <div class="banner-item" style="background: linear-gradient(135deg, #004098 0%, #0066cc 100%);">
                     <h2>汇聚爱心</h2>
                     <p>助力北航教育事业</p>
-                    <van-button type="primary" round size="small" class="banner-btn">立即捐赠</van-button>
+                    <van-button type="primary" round size="small" class="banner-btn" @click.stop="goDonate">立即捐赠</van-button>
                 </div>
             </van-swipe-item>
-            <van-swipe-item>
+            <van-swipe-item @click="goBanner(1)">
                 <div class="banner-item" style="background: linear-gradient(135deg, #0066cc 0%, #004098 100%);">
                     <h2>文创产品</h2>
                     <p>北航文创，传承精神</p>
-                    <van-button type="primary" round size="small" class="banner-btn">浏览文创</van-button>
+                    <van-button type="primary" round size="small" class="banner-btn" @click.stop="goStore">浏览文创</van-button>
                 </div>
             </van-swipe-item>
-            <van-swipe-item>
+            <van-swipe-item @click="goBanner(2)">
                 <div class="banner-item" style="background: linear-gradient(135deg, #004098 0%, #003366 100%);">
                     <h2>校友活动</h2>
                     <p>凝聚校友力量</p>
-                    <van-button type="primary" round size="small" class="banner-btn">查看活动</van-button>
+                    <van-button type="primary" round size="small" class="banner-btn" @click.stop="goActivities">查看活动</van-button>
                 </div>
             </van-swipe-item>
         </van-swipe>
@@ -54,10 +45,10 @@
         <!-- 快捷入口 -->
         <div class="quick-menu">
             <van-grid :column-num="4" :border="false">
-                <van-grid-item icon="gift-o" text="我要捐赠" to="/donate" />
-                <van-grid-item icon="shop-o" text="文创商城" to="/store" />
-                <van-grid-item icon="friends-o" text="校友活动" to="/activities" />
-                <van-grid-item icon="newspaper-o" text="基金会动态" to="/news" />
+                <van-grid-item icon="gift-o" text="我要捐赠" @click="goDonate" />
+                <van-grid-item icon="shop-o" text="文创商城" @click="goStore" />
+                <van-grid-item icon="friends-o" text="校友活动" @click="goActivities" />
+                <van-grid-item icon="newspaper-o" text="基金会动态" @click="viewMoreNews" />
             </van-grid>
         </div>
 
@@ -67,54 +58,44 @@
                 <h3>捐赠项目</h3>
                 <span class="more" @click="viewMore">查看更多</span>
             </div>
-            <van-card
-                v-for="project in projects"
-                :key="project.id"
-                :title="project.title"
-                :desc="project.desc"
-                :thumb="project.image"
-                class="project-card"
-                @click="viewProject(project.id)"
-            >
-                <template #tags>
-                    <van-tag color="#004098" class="project-tag">{{ project.category }}</van-tag>
-                </template>
-                <template #footer>
-                    <div class="project-progress">
-                        <van-progress :percentage="project.progress" color="#004098" />
-                        <div class="progress-info">
-                            <span>已筹 ¥{{ project.raised }}</span>
-                            <span>目标 ¥{{ project.target }}</span>
-                        </div>
+            <div class="project-list">
+                <div v-for="project in projects" :key="project.id" class="project-card" @click="viewProject(project.id)">
+                    <div class="card-header">
+                        <van-tag color="#004098">{{ project.category }}</van-tag>
+                        <h4>{{ project.title }}</h4>
                     </div>
-                </template>
-            </van-card>
+                    <p class="project-desc">{{ project.desc }}</p>
+                    <van-progress :percentage="project.progress" color="#004098" stroke-width="6"></van-progress>
+                    <div class="project-stats">
+                        <span>已筹 ¥{{ project.raised }}</span>
+                        <span>目标 ¥{{ project.target }}</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- 文创产品 -->
         <div class="section">
             <div class="section-header">
                 <h3>文创产品</h3>
-                <span class="more" @click="viewMoreStore">查看更多</span>
+                <span class="more" @click="goStore">查看更多</span>
             </div>
-            <van-grid :column-num="2" :gutter="10" class="product-grid">
-                <van-grid-item v-for="product in products" :key="product.id" @click="viewProduct(product.id)">
-                    <div class="product-card">
-                        <van-image :src="product.image" fit="cover" class="product-image" />
-                        <div class="product-info">
-                            <h4>{{ product.name }}</h4>
-                            <p class="price">¥{{ product.price }}</p>
-                        </div>
+            <div class="product-grid">
+                <div v-for="product in products" :key="product.id" class="product-card" @click="viewProduct(product.id)">
+                    <van-image :src="product.image" fit="cover" class="product-image" />
+                    <div class="product-info">
+                        <h4>{{ product.name }}</h4>
+                        <p class="price">¥{{ product.price }}</p>
                     </div>
-                </van-grid-item>
-            </van-grid>
+                </div>
+            </div>
         </div>
 
         <!-- 校友活动 -->
         <div class="section">
             <div class="section-header">
                 <h3>校友活动</h3>
-                <span class="more" @click="viewMoreActivities">查看更多</span>
+                <span class="more" @click="goActivities">查看更多</span>
             </div>
             <van-cell-group>
                 <van-cell
@@ -161,11 +142,86 @@
         </van-tabbar>
     </div>
 
-    <!-- Vue3 -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <!-- Vant -->
     <script src="https://cdn.jsdelivr.net/npm/vant@4/lib/vant.min.js"></script>
-    <!-- App Script -->
-    <script src="./app.js"></script>
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    activeTab: 0,
+                    projects: [
+                        { id: 1, title: "北航发展基金", desc: "用于支持学校各项事业发展", category: "学校发展", raised: "1285000", target: "2000000", progress: 64 },
+                        { id: 2, title: "学生奖助学金", desc: "资助品学兼优的在校学生", category: "学生资助", raised: "860000", target: "1000000", progress: 86 },
+                        { id: 3, title: "青年教师科研基金", desc: "支持青年教师开展科研工作", category: "教师发展", raised: "420000", target: "800000", progress: 53 }
+                    ],
+                    products: [
+                        { id: 1, name: "北航纪念卫衣", price: 168, image: "https://picsum.photos/200/200?random=1" },
+                        { id: 2, name: "北航马克杯", price: 58, image: "https://picsum.photos/200/200?random=2" },
+                        { id: 3, name: "北航校徽胸针", price: 28, image: "https://picsum.photos/200/200?random=3" },
+                        { id: 4, name: "北航帆布包", price: 88, image: "https://picsum.photos/200/200?random=4" }
+                    ],
+                    activities: [
+                        { id: 1, title: "2026年校友新春联谊会", date: "2026-02-15", location: "北航晨兴音乐厅", status: "报名中" },
+                        { id: 2, title: "校友企业专场招聘会", date: "2026-03-20", location: "北航体育馆", status: "报名中" },
+                        { id: 3, title: "毕业十周年返校活动", date: "2026-04-10", location: "北航校园", status: "报名中" }
+                    ],
+                    newsList: [
+                        { id: 1, title: "北航教育基金会2025年度工作总结会议顺利召开", date: "2026-01-20" },
+                        { id: 2, title: "感谢张校友捐赠500万元设立奖学金", date: "2026-01-15" },
+                        { id: 3, title: "北航文创产品新春特惠活动开启", date: "2026-01-10" }
+                    ]
+                };
+            },
+            methods: {
+                onSearch() {
+                    vant.Toast('搜索功能开发中');
+                },
+                goBanner(index) {
+                    const banners = ['捐赠', '文创', '活动'];
+                    vant.Toast(`查看${banners[index]}详情`);
+                },
+                goDonate() {
+                    vant.Toast('跳转捐赠页面');
+                },
+                goStore() {
+                    location.href = 'store.html';
+                },
+                goActivities() {
+                    location.href = 'activities.html';
+                },
+                viewMore() {
+                    vant.Toast('查看更多捐赠项目');
+                },
+                viewMoreNews() {
+                    vant.Toast('查看更多动态');
+                },
+                viewProject(id) {
+                    location.href = `project-detail.html?id=${id}`;
+                },
+                viewProduct(id) {
+                    location.href = `product-detail.html?id=${id}`;
+                },
+                viewActivity(id) {
+                    location.href = `activity-detail.html?id=${id}`;
+                },
+                viewNews(id) {
+                    vant.Toast(`查看动态 ${id}`);
+                },
+                goPage(page) {
+                    const pageMap = {
+                        'index': 'index.html',
+                        'store': 'store.html',
+                        'activities': 'activities.html',
+                        'my': 'my.html'
+                    };
+                    if (pageMap[page] && !location.href.includes(pageMap[page])) {
+                        location.href = pageMap[page];
+                    }
+                }
+            }
+        }).use(vant).mount('#app');
+    </script>
 </body>
 </html>

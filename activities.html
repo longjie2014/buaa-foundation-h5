@@ -13,31 +13,9 @@
         
         <van-tabs v-model="activeTab" sticky offset-top="46">
             <van-tab title="全部活动">
-                <activity-list :activities="allActivities"></activity-list>
-            </van-tab>
-            <van-tab title="报名中">
-                <activity-list :activities="openActivities"></activity-list>
-            </van-tab>
-            <van-tab title="进行中">
-                <activity-list :activities="ongoingActivities"></activity-list>
-            </van-tab>
-            <van-tab title="已结束">
-                <activity-list :activities="endedActivities"></activity-list>
-            </van-tab>
-        </van-tabs>
-    </div>
-    
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vant@4/lib/vant.min.js"></script>
-    <script>
-        const { createApp, defineComponent } = Vue;
-        
-        const ActivityList = defineComponent({
-            props: ['activities'],
-            template: `
                 <div class="activity-list">
-                    <div v-for="activity in activities" :key="activity.id" class="activity-card" @click="viewDetail(activity.id)">
-                        <van-image :src="activity.image" fit="cover" class="activity-img"></van-image>
+                    <div v-for="activity in allActivities" :key="activity.id" class="activity-card" @click="viewActivity(activity.id)">
+                        <van-image :src="activity.image" fit="cover" class="activity-img" />
                         <div class="activity-info">
                             <div class="activity-status" :class="activity.status">{{ activity.statusText }}</div>
                             <h3>{{ activity.title }}</h3>
@@ -47,25 +25,91 @@
                             </div>
                             <div class="activity-footer">
                                 <span class="participants">{{ activity.joined }}人已报名</span>
-                                <van-button v-if="activity.status === 'open'" type="primary" size="small" round>立即报名</van-button>
+                                <van-button v-if="activity.status === 'open'" type="primary" size="small" round @click.stop="joinActivity(activity.id)">立即报名</van-button>
                                 <van-button v-else disabled size="small" round>{{ activity.statusText }}</van-button>
                             </div>
                         </div>
                     </div>
                 </div>
-            `,
-            methods: {
-                viewDetail(id) {
-                    location.href = `activity-detail.html?id=${id}`;
-                }
-            }
-        });
+            </van-tab>
+            <van-tab title="报名中">
+                <div class="activity-list">
+                    <div v-for="activity in openActivities" :key="activity.id" class="activity-card" @click="viewActivity(activity.id)">
+                        <van-image :src="activity.image" fit="cover" class="activity-img" />
+                        <div class="activity-info">
+                            <div class="activity-status open">{{ activity.statusText }}</div>
+                            <h3>{{ activity.title }}</h3>
+                            <div class="activity-meta">
+                                <span><van-icon name="clock-o"></van-icon> {{ activity.time }}</span>
+                                <span><van-icon name="location-o"></van-icon> {{ activity.location }}</span>
+                            </div>
+                            <div class="activity-footer">
+                                <span class="participants">{{ activity.joined }}人已报名</span>
+                                <van-button type="primary" size="small" round @click.stop="joinActivity(activity.id)">立即报名</van-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </van-tab>
+            <van-tab title="进行中">
+                <div class="activity-list">
+                    <div v-for="activity in ongoingActivities" :key="activity.id" class="activity-card" @click="viewActivity(activity.id)">
+                        <van-image :src="activity.image" fit="cover" class="activity-img" />
+                        <div class="activity-info">
+                            <div class="activity-status ongoing">{{ activity.statusText }}</div>
+                            <h3>{{ activity.title }}</h3>
+                            <div class="activity-meta">
+                                <span><van-icon name="clock-o"></van-icon> {{ activity.time }}</span>
+                                <span><van-icon name="location-o"></van-icon> {{ activity.location }}</span>
+                            </div>
+                            <div class="activity-footer">
+                                <span class="participants">{{ activity.joined }}人已报名</span>
+                                <van-button disabled size="small" round>进行中</van-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </van-tab>
+            <van-tab title="已结束">
+                <div class="activity-list">
+                    <div v-for="activity in endedActivities" :key="activity.id" class="activity-card" @click="viewActivity(activity.id)">
+                        <van-image :src="activity.image" fit="cover" class="activity-img" />
+                        <div class="activity-info">
+                            <div class="activity-status ended">{{ activity.statusText }}</div>
+                            <h3>{{ activity.title }}</h3>
+                            <div class="activity-meta">
+                                <span><van-icon name="clock-o"></van-icon> {{ activity.time }}</span>
+                                <span><van-icon name="location-o"></van-icon> {{ activity.location }}</span>
+                            </div>
+                            <div class="activity-footer">
+                                <span class="participants">{{ activity.joined }}人已报名</span>
+                                <van-button disabled size="small" round>已结束</van-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </van-tab>
+        </van-tabs>
+
+        <!-- 底部 Tabbar -->
+        <van-tabbar v-model="activeTabBar" fixed placeholder>
+            <van-tabbar-item icon="home-o" @click="goPage('index')">首页</van-tabbar-item>
+            <van-tabbar-item icon="shop-o" @click="goPage('store')">文创</van-tabbar-item>
+            <van-tabbar-item icon="calendar-o" @click="goPage('activities')">活动</van-tabbar-item>
+            <van-tabbar-item icon="user-o" @click="goPage('my')">我的</van-tabbar-item>
+        </van-tabbar>
+    </div>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vant@4/lib/vant.min.js"></script>
+    <script>
+        const { createApp } = Vue;
         
         createApp({
-            components: { ActivityList },
             data() {
                 return {
                     activeTab: 0,
+                    activeTabBar: 2,
                     allActivities: [
                         { id: 1, title: "2026年校友新春联谊会", time: "2026-02-15 14:00", location: "北航晨兴音乐厅", joined: 128, status: "open", statusText: "报名中", image: "https://picsum.photos/400/200?random=1" },
                         { id: 2, title: "校友企业专场招聘会", time: "2026-03-20 09:00", location: "北航体育馆", joined: 256, status: "open", statusText: "报名中", image: "https://picsum.photos/400/200?random=2" },
@@ -86,9 +130,26 @@
             methods: {
                 goBack() {
                     location.href = 'index.html';
+                },
+                viewActivity(id) {
+                    vant.Toast(`查看活动详情 ${id}`);
+                },
+                joinActivity(id) {
+                    vant.Toast(`报名活动 ${id}`);
+                },
+                goPage(page) {
+                    const pageMap = {
+                        'index': 'index.html',
+                        'store': 'store.html',
+                        'activities': 'activities.html',
+                        'my': 'my.html'
+                    };
+                    if (pageMap[page] && !location.href.includes(pageMap[page])) {
+                        location.href = pageMap[page];
+                    }
                 }
             }
-        }).use(vant).component('ActivityList', ActivityList).mount('#app');
+        }).use(vant).mount('#app');
     </script>
 </body>
 </html>

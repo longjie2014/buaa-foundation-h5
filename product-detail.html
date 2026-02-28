@@ -11,6 +11,9 @@
     <div id="app">
         <van-nav-bar left-arrow @click-left="goBack" fixed placeholder>
             <template #title>商品详情</template>
+            <template #right>
+                <van-icon name="share-o" size="20" @click="shareProduct"></van-icon>
+            </template>
         </van-nav-bar>
         
         <!-- 商品图片轮播 -->
@@ -48,7 +51,7 @@
                         <van-button v-for="color in colors" :key="color" 
                             size="small" 
                             :type="selectedColor === color ? 'primary' : 'default'"
-                            @click="selectedColor = color"
+                            @click="selectColor(color)"
                             class="sku-btn"
                         >{{ color }}</van-button>
                     </div>
@@ -60,7 +63,7 @@
                         <van-button v-for="size in sizes" :key="size" 
                             size="small" 
                             :type="selectedSize === size ? 'primary' : 'default'"
-                            @click="selectedSize = size"
+                            @click="selectSize(size)"
                             class="sku-btn"
                         >{{ size }}</van-button>
                     </div>
@@ -77,7 +80,7 @@
             <!-- 商品详情 -->
             <div class="product-desc">
                 <h3>商品详情</h3>
-                <van-image src="https://picsum.photos/400/300?random=10" fit="cover"></van-image>
+                <van-image src="https://picsum.photos/400/300?random=10" fit="cover" @click="previewImage"></van-image>
                 <p>北航纪念卫衣，采用优质棉质面料，舒适透气。胸前印有北航校徽，彰显北航精神。适合日常穿着，也是送给校友的精美礼品。</p>
                 
                 <h4>商品参数</h4>
@@ -122,6 +125,23 @@
                 goBack() {
                     history.back();
                 },
+                shareProduct() {
+                    vant.Toast('分享商品');
+                },
+                selectColor(color) {
+                    this.selectedColor = color;
+                    vant.Toast(`已选择颜色: ${color}`);
+                },
+                selectSize(size) {
+                    this.selectedSize = size;
+                    vant.Toast(`已选择尺码: ${size}`);
+                },
+                previewImage() {
+                    vant.ImagePreview({
+                        images: this.images,
+                        startPosition: 0,
+                    });
+                },
                 contact() {
                     vant.Toast('联系客服');
                 },
@@ -129,10 +149,10 @@
                     vant.Toast('跳转购物车');
                 },
                 addCart() {
-                    vant.Toast('已加入购物车');
+                    vant.Toast(`已加入购物车: ${this.selectedColor} ${this.selectedSize} x${this.quantity}`);
                 },
                 buyNow() {
-                    vant.Toast('跳转结算页面');
+                    vant.Toast(`立即购买: ${this.selectedColor} ${this.selectedSize} x${this.quantity}`);
                 }
             }
         }).use(vant).mount('#app');
