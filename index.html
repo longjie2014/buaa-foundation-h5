@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>北京航空航天大学教育基金会</title>
+    <meta name="description" content="北京航空航天大学教育基金会 - 汇聚爱心，助力教育">
+    <!-- Vant CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@4/lib/index.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 顶部导航 -->
+        <van-nav-bar
+            title="北航教育基金会"
+            left-text=""
+            left-arrow
+            @click-left="onClickLeft"
+            fixed
+            placeholder
+        >
+            <template #right>
+                <van-icon name="search" size="20" @click="onSearch" />
+            </template>
+        </van-nav-bar>
+
+        <!-- 轮播图 -->
+        <van-swipe class="banner-swipe" :autoplay="3000" indicator-color="#004098">
+            <van-swipe-item>
+                <div class="banner-item" style="background: linear-gradient(135deg, #004098 0%, #0066cc 100%);">
+                    <h2>汇聚爱心</h2>
+                    <p>助力北航教育事业</p>
+                    <van-button type="primary" round size="small" class="banner-btn">立即捐赠</van-button>
+                </div>
+            </van-swipe-item>
+            <van-swipe-item>
+                <div class="banner-item" style="background: linear-gradient(135deg, #0066cc 0%, #004098 100%);">
+                    <h2>文创产品</h2>
+                    <p>北航文创，传承精神</p>
+                    <van-button type="primary" round size="small" class="banner-btn">浏览文创</van-button>
+                </div>
+            </van-swipe-item>
+            <van-swipe-item>
+                <div class="banner-item" style="background: linear-gradient(135deg, #004098 0%, #003366 100%);">
+                    <h2>校友活动</h2>
+                    <p>凝聚校友力量</p>
+                    <van-button type="primary" round size="small" class="banner-btn">查看活动</van-button>
+                </div>
+            </van-swipe-item>
+        </van-swipe>
+
+        <!-- 快捷入口 -->
+        <div class="quick-menu">
+            <van-grid :column-num="4" :border="false">
+                <van-grid-item icon="gift-o" text="我要捐赠" to="/donate" />
+                <van-grid-item icon="shop-o" text="文创商城" to="/store" />
+                <van-grid-item icon="friends-o" text="校友活动" to="/activities" />
+                <van-grid-item icon="newspaper-o" text="基金会动态" to="/news" />
+            </van-grid>
+        </div>
+
+        <!-- 捐赠项目 -->
+        <div class="section">
+            <div class="section-header">
+                <h3>捐赠项目</h3>
+                <span class="more" @click="viewMore">查看更多</span>
+            </div>
+            <van-card
+                v-for="project in projects"
+                :key="project.id"
+                :title="project.title"
+                :desc="project.desc"
+                :thumb="project.image"
+                class="project-card"
+                @click="viewProject(project.id)"
+            >
+                <template #tags>
+                    <van-tag color="#004098" class="project-tag">{{ project.category }}</van-tag>
+                </template>
+                <template #footer>
+                    <div class="project-progress">
+                        <van-progress :percentage="project.progress" color="#004098" />
+                        <div class="progress-info">
+                            <span>已筹 ¥{{ project.raised }}</span>
+                            <span>目标 ¥{{ project.target }}</span>
+                        </div>
+                    </div>
+                </template>
+            </van-card>
+        </div>
+
+        <!-- 文创产品 -->
+        <div class="section">
+            <div class="section-header">
+                <h3>文创产品</h3>
+                <span class="more" @click="viewMoreStore">查看更多</span>
+            </div>
+            <van-grid :column-num="2" :gutter="10" class="product-grid">
+                <van-grid-item v-for="product in products" :key="product.id" @click="viewProduct(product.id)">
+                    <div class="product-card">
+                        <van-image :src="product.image" fit="cover" class="product-image" />
+                        <div class="product-info">
+                            <h4>{{ product.name }}</h4>
+                            <p class="price">¥{{ product.price }}</p>
+                        </div>
+                    </div>
+                </van-grid-item>
+            </van-grid>
+        </div>
+
+        <!-- 校友活动 -->
+        <div class="section">
+            <div class="section-header">
+                <h3>校友活动</h3>
+                <span class="more" @click="viewMoreActivities">查看更多</span>
+            </div>
+            <van-cell-group>
+                <van-cell
+                    v-for="activity in activities"
+                    :key="activity.id"
+                    :title="activity.title"
+                    :label="activity.date + ' · ' + activity.location"
+                    is-link
+                    @click="viewActivity(activity.id)"
+                >
+                    <template #icon>
+                        <van-tag :type="activity.status === '报名中' ? 'success' : 'default'" class="activity-tag">
+                            {{ activity.status }}
+                        </van-tag>
+                    </template>
+                </van-cell>
+            </van-cell-group>
+        </div>
+
+        <!-- 基金会动态 -->
+        <div class="section">
+            <div class="section-header">
+                <h3>基金会动态</h3>
+                <span class="more" @click="viewMoreNews">查看更多</span>
+            </div>
+            <van-cell-group>
+                <van-cell
+                    v-for="news in newsList"
+                    :key="news.id"
+                    :title="news.title"
+                    :label="news.date"
+                    is-link
+                    @click="viewNews(news.id)"
+                />
+            </van-cell-group>
+        </div>
+
+        <!-- 底部 Tabbar -->
+        <van-tabbar v-model="activeTab" fixed placeholder route>
+            <van-tabbar-item icon="home-o" to="/">首页</van-tabbar-item>
+            <van-tabbar-item icon="shop-o" to="/store">文创</van-tabbar-item>
+            <van-tabbar-item icon="calendar-o" to="/activities">活动</van-tabbar-item>
+            <van-tabbar-item icon="user-o" to="/my">我的</van-tabbar-item>
+        </van-tabbar>
+    </div>
+
+    <!-- Vue3 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Vant -->
+    <script src="https://cdn.jsdelivr.net/npm/vant@4/lib/vant.min.js"></script>
+    <!-- App Script -->
+    <script src="./app.js"></script>
+</body>
+</html>
