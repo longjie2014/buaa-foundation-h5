@@ -216,8 +216,10 @@
                         'activities': 'activities.html',
                         'my': 'my.html'
                     };
-                    if (pageMap[page] && !location.href.includes(pageMap[page])) {
-                        location.href = pageMap[page];
+                    const target = pageMap[page];
+                    if (target) {
+                        // 简单的页面跳转，使用 window.location
+                        window.location.href = target;
                     }
                 }
             }

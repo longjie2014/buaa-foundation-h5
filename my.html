@@ -123,8 +123,9 @@
                         'activities': 'activities.html',
                         'my': 'my.html'
                     };
-                    if (pageMap[page] && !location.href.includes(pageMap[page])) {
-                        location.href = pageMap[page];
+                    const target = pageMap[page];
+                    if (target) {
+                        window.location.href = target;
                     }
                 }
             }
