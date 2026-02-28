@@ -139,6 +139,17 @@ const app = createApp({
         },
         viewNews(id) {
             vant.Toast(`查看动态 ${id}`);
+        },
+        goPage(page) {
+            const pageMap = {
+                'index': 'index.html',
+                'store': 'store.html',
+                'activities': 'activities.html',
+                'my': 'my.html'
+            };
+            if (pageMap[page]) {
+                location.href = pageMap[page];
+            }
         }
     }
 });

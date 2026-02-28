@@ -153,11 +153,11 @@
         </div>
 
         <!-- 底部 Tabbar -->
-        <van-tabbar v-model="activeTab" fixed placeholder route>
-            <van-tabbar-item icon="home-o" to="/">首页</van-tabbar-item>
-            <van-tabbar-item icon="shop-o" to="/store">文创</van-tabbar-item>
-            <van-tabbar-item icon="calendar-o" to="/activities">活动</van-tabbar-item>
-            <van-tabbar-item icon="user-o" to="/my">我的</van-tabbar-item>
+        <van-tabbar v-model="activeTab" fixed placeholder>
+            <van-tabbar-item icon="home-o" @click="goPage('index')">首页</van-tabbar-item>
+            <van-tabbar-item icon="shop-o" @click="goPage('store')">文创</van-tabbar-item>
+            <van-tabbar-item icon="calendar-o" @click="goPage('activities')">活动</van-tabbar-item>
+            <van-tabbar-item icon="user-o" @click="goPage('my')">我的</van-tabbar-item>
         </van-tabbar>
     </div>
 
