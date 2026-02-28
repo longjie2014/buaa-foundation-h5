@@ -1,4 +1,89 @@
-/* åŒ—èˆªæ•™è‚²åŸºé‡‘ä¼š H5 æ ·å¼ */
+/* ÊÖ»úÊÊÅä - °²È«ÇøÓò */
+:root {
+    --safe-area-top: env(safe-area-inset-top);
+    --safe-area-bottom: env(safe-area-inset-bottom);
+    --safe-area-left: env(safe-area-inset-left);
+    --safe-area-right: env(safe-area-inset-right);
+}
+
+/* ½ûÓÃ³¤°´²Ëµ¥¡¢Ñ¡ÖĞÎÄ×Ö */
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* ÔÊĞíÊäÈë¿òÑ¡ÖĞ */
+input, textarea {
+    -webkit-user-select: auto;
+    user-select: auto;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+body {
+    /* ÊÊÅäÁõº£ÆÁ */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+}
+
+/* iPhone X ¼°ÒÔÉÏÁõº£ÆÁÊÊÅä */
+@supports (padding-top: env(safe-area-inset-top)) {
+    .van-nav-bar--fixed {
+        padding-top: env(safe-area-inset-top);
+    }
+    
+    .van-tabbar--fixed {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+
+/* µ×²¿°²È«ÇøÓò */
+#app {
+    padding-bottom: calc(50px + env(safe-area-inset-bottom));
+}
+
+/* ÏìÓ¦Ê½×ÖÌå´óĞ¡ */
+@media screen and (max-width: 320px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+@media screen and (min-width: 375px) and (max-width: 414px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+@media screen and (min-width: 415px) {
+    html {
+        font-size: 18px;
+    }
+}
+
+/* iPhone ÌØÓĞÊÊÅä */
+@supports (-webkit-touch-callout: none) {
+    /* iOS Éè±¸ */
+    .van-button--normal {
+        padding: 0 15px;
+    }
+}
+
+/* Android ÌØÓĞÊÊÅä */
+@supports not (-webkit-touch-callout: none) {
+    /* Android Éè±¸ */
+    body {
+        font-family: 'Roboto', 'Noto Sans CJK SC', sans-serif;
+    }
+}
+/* åŒ—èˆªæ•™è‚²åŸºé‡‘ä¼?H5 æ ·å¼ */
 
 :root {
     --buaa-blue: #004098;
@@ -23,7 +108,7 @@ body {
     padding-bottom: 50px;
 }
 
-/* å¯¼èˆªæ  */
+/* å¯¼èˆªæ ?*/
 .van-nav-bar {
     background-color: var(--buaa-blue) !important;
 }
@@ -36,7 +121,7 @@ body {
     color: #fff !important;
 }
 
-/* è½®æ’­å›¾ */
+/* è½®æ’­å›?*/
 .banner-swipe {
     height: 200px;
     margin-top: 46px;
@@ -206,7 +291,7 @@ body {
     color: var(--buaa-blue) !important;
 }
 
-/* å“åº”å¼ */
+/* å“åº”å¼?*/
 @media screen and (max-width: 375px) {
     .banner-item h2 {
         font-size: 24px;

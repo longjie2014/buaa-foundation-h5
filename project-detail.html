@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>项目详情 - 北航教育基金会</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@4/lib/index.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="app">
+        <van-nav-bar title="项目详情" left-arrow @click-left="goBack" fixed placeholder></van-nav-bar>
+        
+        <div class="project-detail">
+            <van-image src="https://picsum.photos/400/200?random=1" fit="cover" class="detail-banner"></van-image>
+            
+            <div class="detail-content">
+                <h1>北航发展基金</h1>
+                <van-tag color="#004098">学校发展</van-tag>
+                
+                <div class="progress-section">
+                    <van-progress :percentage="64" color="#004098" stroke-width="8"></van-progress>
+                    <div class="progress-stats">
+                        <div>
+                            <span class="label">已筹</span>
+                            <span class="value">¥1,285,000</span>
+                        </div>
+                        <div>
+                            <span class="label">目标</span>
+                            <span class="value">¥2,000,000</span>
+                        </div>
+                        <div>
+                            <span class="label">捐赠人</span>
+                            <span class="value">256人</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <van-divider></van-divider>
+                
+                <div class="project-desc">
+                    <h3>项目介绍</h3>
+                    <p>北航发展基金用于支持学校各项事业发展，包括基础设施建设、教学科研设备购置、人才引进培养等方面。您的每一份捐赠都将为北航的发展贡献力量。</p>
+                    
+                    <h3>资金用途</h3>
+                    <van-cell-group>
+                        <van-cell title="基础设施建设" value="40%"></van-cell>
+                        <van-cell title="教学科研设备" value="30%"></van-cell>
+                        <van-cell title="人才培养" value="20%"></van-cell>
+                        <van-cell title="其他" value="10%"></van-cell>
+                    </van-cell-group>
+                </div>
+                
+                <van-divider></van-divider>
+                
+                <div class="donors-list">
+                    <h3>最新捐赠</h3>
+                    <van-cell v-for="donor in donors" :key="donor.id" :title="donor.name" :label="donor.time" :value="'¥' + donor.amount"></van-cell>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bottom-action">
+            <van-button type="primary" block color="#004098" @click="donate">我要捐赠</van-button>
+        </div>
+    </div>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vant@4/lib/vant.min.js"></script>
+    <script>
+        const { createApp } = Vue;
+        createApp({
+            data() {
+                return {
+                    donors: [
+                        { id: 1, name: "张**", amount: 10000, time: "2026-02-28" },
+                        { id: 2, name: "李**", amount: 5000, time: "2026-02-27" },
+                        { id: 3, name: "王**", amount: 2000, time: "2026-02-26" },
+                        { id: 4, name: "刘**", amount: 1000, time: "2026-02-25" },
+                        { id: 5, name: "陈**", amount: 500, time: "2026-02-24" }
+                    ]
+                };
+            },
+            methods: {
+                goBack() {
+                    history.back();
+                },
+                donate() {
+                    vant.Toast('捐赠功能开发中');
+                }
+            }
+        }).use(vant).mount('#app');
+    </script>
+</body>
+</html>
