@@ -51,6 +51,12 @@
     border-radius: 8px;
     padding: 12px;
     margin-bottom: 10px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0,0,0,0.05);
+}
+
+.activity-item:active {
+    background: #f9f9f9;
 }
 
 .activity-thumb {

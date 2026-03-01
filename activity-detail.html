@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>活动详情 - 北航教育基金会</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@4/lib/index.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <style>
+        .activity-banner {
+            width: 100%;
+            height: 200px;
+        }
+        .activity-info {
+            background: white;
+            padding: 16px;
+        }
+        .activity-info h1 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            color: #666;
+            font-size: 14px;
+        }
+        .activity-desc {
+            background: white;
+            padding: 16px;
+            margin-top: 10px;
+        }
+        .activity-desc h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .activity-desc p {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #666;
+        }
+        .bottom-action {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 12px 16px;
+            background: white;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <van-nav-bar title="活动详情" left-arrow @click-left="goBack" fixed placeholder></van-nav-bar>
+        
+        <van-image :src="activity.image" fit="cover" class="activity-banner" style="margin-top: 46px;"></van-image>
+        
+        <div class="activity-info">
+            <van-tag :type="activity.status === 'open' ? 'primary' : activity.status === 'ongoing' ? 'warning' : 'default'" size="medium">{{ activity.statusText }}</van-tag>
+            
+            <h1>{{ activity.title }}</h1>
+            
+            <div class="info-item">
+                <van-icon name="clock-o" color="#999"></van-icon>
+                <span>{{ activity.time }}</span>
+            </div>
+            
+            <div class="info-item">
+                <van-icon name="location-o" color="#999"></van-icon>
+                <span>{{ activity.location }}</span>
+            </div>
+            
+            <div class="info-item">
+                <van-icon name="friends-o" color="#999"></van-icon>
+                <span>{{ activity.joined }}人已报名</span>
+            </div>
+        </div>
+        
+        <div class="activity-desc">
+            <h3>活动介绍</h3>
+            <p>{{ activity.description }}</p>
+        </div>
+        
+        <div class="bottom-action">
+            <van-button v-if="activity.status === 'open'" type="primary" block color="#004098" @click="joinActivity">立即报名</van-button>
+            <van-button v-else disabled block>{{ activity.statusText }}</van-button>
+        </div>
+    </div>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vant@4/lib/vant.min.js"></script>
+    <script>
+        const { createApp } = Vue;
+        
+        // 获取URL参数
+        const urlParams = new URLSearchParams(window.location.search);
+        const activityId = urlParams.get('id');
+        
+        createApp({
+            data() {
+                return {
+                    activity: {
+                        id: activityId,
+                        title: "2026年校友新春联谊会",
+                        time: "2026-02-15 14:00",
+                        location: "北航晨兴音乐厅",
+                        joined: 128,
+                        status: "open",
+                        statusText: "报名中",
+                        image: "https://picsum.photos/400/200?random=1",
+                        description: "为促进校友之间的交流与合作，北航教育基金会将于2026年2月15日举办新春联谊会。活动将邀请知名校友分享创业经验，同时设置互动环节，让校友们重温校园时光，共谋发展。欢迎广大校友踊跃报名参加！"
+                    }
+                };
+            },
+            methods: {
+                goBack() {
+                    history.back();
+                },
+                joinActivity() {
+                    vant.Dialog.confirm({
+                        title: '确认报名',
+                        message: '确定要报名参加此活动吗？'
+                    }).then(() => {
+                        vant.Toast.success('报名成功！');
+                    }).catch(() => {});
+                }
+            }
+        }).use(vant).mount('#app');
+    </script>
+</body>
+</html>
