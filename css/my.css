@@ -1,0 +1,57 @@
+/* 我的页面样式 */
+
+.user-header {
+    background: linear-gradient(135deg, #004098 0%, #0066cc 100%);
+    padding: 40px 20px 20px;
+    color: white;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.user-text h2 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.user-text p {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.setting-icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 24px;
+}
+
+.user-stats {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+.user-stats .stat-item {
+    text-align: center;
+}
+
+.user-stats .stat-num {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.user-stats .stat-label {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.menu-section {
+    margin-top: 10px;
+}
