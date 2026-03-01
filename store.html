@@ -20,60 +20,42 @@
         </van-nav-bar>
         
         <!-- 搜索栏 -->
-        <div class="search-bar">
+        <div class="search-bar" style="margin-top: 46px;">
             <van-search v-model="searchValue" placeholder="搜索文创商品" shape="round" @search="onSearch"></van-search>
         </div>
         
-        <!-- 分类标签 -->
-        <van-tabs v-model="activeTab" sticky offset-top="46" @click-tab="onTabClick">
-            <van-tab title="全部">
-                <div class="store-grid">
-                    <div v-for="product in allProducts" :key="product.id" class="store-item" @click="viewProduct(product.id)">
-                        <van-image :src="product.image" fit="cover" class="store-img" />
-                        <div class="store-info">
-                            <h4>{{ product.name }}</h4>
-                            <p class="store-price"><span class="currency">¥</span>{{ product.price }}</p>
-                            <div class="store-tags">
-                                <van-tag v-for="tag in product.tags" :key="tag" size="mini" type="primary" plain>{{ tag }}</van-tag>
-                            </div>
-                        </div>
-                    </div>
+        <!-- 服饰类文创 -->
+        <div class="category-title">服饰类文创</div>
+        <div class="store-grid">
+            <div v-for="product in clothes" :key="product.id" class="store-item" @click="viewProduct(product.id)">
+                <img :src="product.image" class="store-img" alt="商品图片">
+                <div class="store-info">
+                    <h4>{{ product.name }}</h4>
                 </div>
-            </van-tab>
-            <van-tab title="服饰">
-                <div class="store-grid">
-                    <div v-for="product in clothes" :key="product.id" class="store-item" @click="viewProduct(product.id)">
-                        <van-image :src="product.image" fit="cover" class="store-img" />
-                        <div class="store-info">
-                            <h4>{{ product.name }}</h4>
-                            <p class="store-price"><span class="currency">¥</span>{{ product.price }}</p>
-                        </div>
-                    </div>
+            </div>
+        </div>
+        
+        <!-- 日用品类文创 -->
+        <div class="category-title">日用品类文创</div>
+        <div class="store-grid">
+            <div v-for="product in daily" :key="product.id" class="store-item" @click="viewProduct(product.id)">
+                <img :src="product.image" class="store-img" alt="商品图片">
+                <div class="store-info">
+                    <h4>{{ product.name }}</h4>
                 </div>
-            </van-tab>
-            <van-tab title="生活用品">
-                <div class="store-grid">
-                    <div v-for="product in daily" :key="product.id" class="store-item" @click="viewProduct(product.id)">
-                        <van-image :src="product.image" fit="cover" class="store-img" />
-                        <div class="store-info">
-                            <h4>{{ product.name }}</h4>
-                            <p class="store-price"><span class="currency">¥</span>{{ product.price }}</p>
-                        </div>
-                    </div>
+            </div>
+        </div>
+        
+        <!-- 纪念品类文创 -->
+        <div class="category-title">纪念品类文创</div>
+        <div class="store-grid">
+            <div v-for="product in souvenir" :key="product.id" class="store-item" @click="viewProduct(product.id)">
+                <img :src="product.image" class="store-img" alt="商品图片">
+                <div class="store-info">
+                    <h4>{{ product.name }}</h4>
                 </div>
-            </van-tab>
-            <van-tab title="纪念品">
-                <div class="store-grid">
-                    <div v-for="product in souvenir" :key="product.id" class="store-item" @click="viewProduct(product.id)">
-                        <van-image :src="product.image" fit="cover" class="store-img" />
-                        <div class="store-info">
-                            <h4>{{ product.name }}</h4>
-                            <p class="store-price"><span class="currency">¥</span>{{ product.price }}</p>
-                        </div>
-                    </div>
-                </div>
-            </van-tab>
-        </van-tabs>
+            </div>
+        </div>
 
         <!-- 底部 Tabbar -->
         <van-tabbar v-model="activeTabBar" fixed placeholder>
@@ -93,31 +75,24 @@
             data() {
                 return {
                     searchValue: '',
-                    activeTab: 0,
                     activeTabBar: 1,
-                    allProducts: [
-                        { id: 1, name: "北航纪念卫衣", price: 168, tags: ["热销", "新品"], image: "https://picsum.photos/200/200?random=1" },
-                        { id: 2, name: "北航马克杯", price: 58, tags: ["经典"], image: "https://picsum.photos/200/200?random=2" },
-                        { id: 3, name: "北航校徽胸针", price: 28, tags: ["精致"], image: "https://picsum.photos/200/200?random=3" },
-                        { id: 4, name: "北航帆布包", price: 88, tags: ["实用"], image: "https://picsum.photos/200/200?random=4" },
-                        { id: 5, name: "北航纪念T恤", price: 98, tags: ["夏季"], image: "https://picsum.photos/200/200?random=5" },
-                        { id: 6, name: "北航笔记本套装", price: 48, tags: ["文具"], image: "https://picsum.photos/200/200?random=6" },
-                        { id: 7, name: "北航棒球帽", price: 68, tags: ["配饰"], image: "https://picsum.photos/200/200?random=7" },
-                        { id: 8, name: "北航钥匙扣", price: 18, tags: ["小礼品"], image: "https://picsum.photos/200/200?random=8" }
-                    ],
                     clothes: [
-                        { id: 1, name: "北航纪念卫衣", price: 168, tags: ["热销"], image: "https://picsum.photos/200/200?random=1" },
-                        { id: 5, name: "北航纪念T恤", price: 98, tags: ["夏季"], image: "https://picsum.photos/200/200?random=5" },
-                        { id: 7, name: "北航棒球帽", price: 68, tags: ["配饰"], image: "https://picsum.photos/200/200?random=7" }
+                        { id: 1, name: "北航纪念卫衣", image: "https://picsum.photos/200/200?random=1" },
+                        { id: 2, name: "北航纪念T恤", image: "https://picsum.photos/200/200?random=2" },
+                        { id: 3, name: "北航棒球帽", image: "https://picsum.photos/200/200?random=3" },
+                        { id: 4, name: "北航Polo衫", image: "https://picsum.photos/200/200?random=4" },
+                        { id: 5, name: "北航防晒衣", image: "https://picsum.photos/200/200?random=5" },
+                        { id: 6, name: "北航冲锋衣", image: "https://picsum.photos/200/200?random=6" }
                     ],
                     daily: [
-                        { id: 2, name: "北航马克杯", price: 58, tags: ["经典"], image: "https://picsum.photos/200/200?random=2" },
-                        { id: 4, name: "北航帆布包", price: 88, tags: ["实用"], image: "https://picsum.photos/200/200?random=4" },
-                        { id: 6, name: "北航笔记本套装", price: 48, tags: ["文具"], image: "https://picsum.photos/200/200?random=6" }
+                        { id: 7, name: "北航马克杯", image: "https://picsum.photos/200/200?random=7" },
+                        { id: 8, name: "北航帆布包", image: "https://picsum.photos/200/200?random=8" },
+                        { id: 9, name: "北航笔记本", image: "https://picsum.photos/200/200?random=9" }
                     ],
                     souvenir: [
-                        { id: 3, name: "北航校徽胸针", price: 28, tags: ["精致"], image: "https://picsum.photos/200/200?random=3" },
-                        { id: 8, name: "北航钥匙扣", price: 18, tags: ["小礼品"], image: "https://picsum.photos/200/200?random=8" }
+                        { id: 10, name: "北航校徽胸针", image: "https://picsum.photos/200/200?random=10" },
+                        { id: 11, name: "北航钥匙扣", image: "https://picsum.photos/200/200?random=11" },
+                        { id: 12, name: "北航纪念徽章", image: "https://picsum.photos/200/200?random=12" }
                     ]
                 };
             },
@@ -130,9 +105,6 @@
                 },
                 onSearch() {
                     vant.Toast(`搜索: ${this.searchValue}`);
-                },
-                onTabClick() {
-                    console.log('Tab switched');
                 },
                 viewProduct(id) {
                     location.href = `product-detail.html?id=${id}`;
