@@ -96,12 +96,26 @@
                 <h3>文创产品</h3>
                 <span class="more" @click="goStore">查看更多</span>
             </div>
-            <div class="product-grid">
-                <div v-for="product in products" :key="product.id" class="product-card" @click="viewProduct(product.id)">
-                    <van-image :src="product.image" fit="cover" class="product-image" />
-                    <div class="product-info">
-                        <h4>{{ product.name }}</h4>
-                        <p class="price">¥{{ product.price }}</p>
+            <div class="cultural-list">
+                <div v-for="product in products" :key="product.id" class="cultural-card" @click="viewProduct(product.id)">
+                    <div class="cultural-image-wrapper">
+                        <van-image :src="product.image" fit="cover" class="cultural-image" />
+                        <div v-if="product.badge" class="cultural-badge">{{ product.badge }}</div>
+                    </div>
+                    <div class="cultural-content">
+                        <h4 class="cultural-title">{{ product.name }}</h4>
+                        <div class="cultural-tags">
+                            <van-tag v-for="(tag, idx) in product.tags" :key="idx" 
+                                :type="tag.type || 'default'" 
+                                size="small"
+                                class="cultural-tag">
+                                {{ tag.text }}
+                            </van-tag>
+                        </div>
+                        <div class="cultural-price-row">
+                            <span class="cultural-price">¥{{ product.price }}</span>
+                            <span v-if="product.originalPrice" class="cultural-original-price">¥{{ product.originalPrice }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -179,10 +193,51 @@
                         { id: 3, title: "青年教师科研基金", desc: "支持青年教师开展前沿科学研究，资助创新项目，培养学术骨干，为学校长远发展储备人才力量。", category: "教师发展", raised: "420,000", target: "800,000", progress: 53, image: "https://picsum.photos/400/200?random=12" }
                     ],
                     products: [
-                        { id: 1, name: "北航纪念卫衣", price: 168, image: "https://picsum.photos/200/200?random=1" },
-                        { id: 2, name: "北航马克杯", price: 58, image: "https://picsum.photos/200/200?random=2" },
-                        { id: 3, name: "北航校徽胸针", price: 28, image: "https://picsum.photos/200/200?random=3" },
-                        { id: 4, name: "北航帆布包", price: 88, image: "https://picsum.photos/200/200?random=4" }
+                        { 
+                            id: 1, 
+                            name: "北航纪念卫衣", 
+                            price: 168, 
+                            originalPrice: 198,
+                            image: "https://picsum.photos/400/220?random=1",
+                            badge: "热销",
+                            tags: [
+                                { text: "校友专享", type: "primary" },
+                                { text: "满199包邮", type: "success" }
+                            ]
+                        },
+                        { 
+                            id: 2, 
+                            name: "北航马克杯", 
+                            price: 58, 
+                            image: "https://picsum.photos/400/220?random=2",
+                            badge: "",
+                            tags: [
+                                { text: "新品上市", type: "danger" },
+                                { text: "限量发售", type: "warning" }
+                            ]
+                        },
+                        { 
+                            id: 3, 
+                            name: "北航校徽胸针", 
+                            price: 28, 
+                            image: "https://picsum.photos/400/220?random=3",
+                            badge: "",
+                            tags: [
+                                { text: "经典款", type: "default" }
+                            ]
+                        },
+                        { 
+                            id: 4, 
+                            name: "北航帆布包", 
+                            price: 88, 
+                            originalPrice: 108,
+                            image: "https://picsum.photos/400/220?random=4",
+                            badge: "特惠",
+                            tags: [
+                                { text: "环保材质", type: "success" },
+                                { text: "实用百搭", type: "primary" }
+                            ]
+                        }
                     ],
                     activities: [
                         { id: 1, title: "2026年校友新春联谊会", date: "2026-02-15", location: "北航晨兴音乐厅", status: "报名中" },
