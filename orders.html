@@ -22,17 +22,17 @@
                     
                     <div v-for="order in orders" :key="order.id" class="order-card">
                         <div class="order-header">
-                            <span>订单号: {{ order.orderNo }}</span>
-                            <van-tag :type="order.statusType">{{ order.status }}</van-tag>
+                            <span>{{ order.orderNo }}</span>
+                            <van-tag :type="order.statusType" size="small">{{ order.status }}</van-tag>
                         </div>
                         
                         <div class="order-content" @click="viewOrderDetail(order.id)">
-                            <van-image :src="order.image" fit="cover" width="80" height="80" />
+                            <van-image :src="order.image" fit="cover" width="60" height="60" radius="4" />
                             
-                            <div class="order-product">
-                                <h4>{{ order.productName }}</h4>
-                                <p class="order-spec">{{ order.spec }}</p>
-                                <div class="order-price-row">
+                            <div class="order-info">
+                                <div class="order-title">{{ order.productName }}</div>
+                                <div class="order-meta">{{ order.spec }}</div>
+                                <div class="order-price-info">
                                     <span class="order-price">¥{{ order.price }}</span>
                                     <span class="order-count">x{{ order.count }}</span>
                                 </div>
@@ -41,14 +41,14 @@
                         
                         <div class="order-footer">
                             <div class="order-total">
-                                共{{ order.count }}件商品 合计: <span class="total-price">¥{{ order.total }}</span>
+                                共{{ order.count }}件 合计: <span class="total-price">¥{{ order.total }}</span>
                             </div>
                             
                             <div class="order-actions">
-                                <van-button v-if="order.status === '待付款'" type="danger" size="small" round @click.stop="payNow(order.id)">立即付款</van-button>
-                                <van-button v-if="order.status === '待收货'" type="primary" size="small" round plain @click.stop="viewLogistics(order.id)">查看物流</van-button>
-                                <van-button v-if="order.status === '待收货'" type="primary" size="small" round @click.stop="confirmReceive(order.id)">确认收货</van-button>
-                                <van-button v-if="order.status === '已完成'" type="default" size="small" round @click.stop="buyAgain(order.id)">再次购买</van-button>
+                                <van-button v-if="order.status === '待付款'" type="danger" size="small" round @click.stop="payNow(order.id)">付款</van-button>
+                                <van-button v-if="order.status === '待收货'" type="primary" size="small" round plain @click.stop="viewLogistics(order.id)">物流</van-button>
+                                <van-button v-if="order.status === '待收货'" type="primary" size="small" round @click.stop="confirmReceive(order.id)">收货</van-button>
+                                <van-button v-if="order.status === '已完成'" type="default" size="small" round @click.stop="buyAgain(order.id)">再买</van-button>
                             </div>
                         </div>
                     </div>
@@ -59,16 +59,16 @@
                 <div class="order-list">
                     <div v-for="order in pendingOrders" :key="order.id" class="order-card">
                         <div class="order-header">
-                            <span>订单号: {{ order.orderNo }}</span>
-                            <van-tag type="danger">{{ order.status }}</van-tag>
+                            <span>{{ order.orderNo }}</span>
+                            <van-tag type="danger" size="small">{{ order.status }}</van-tag>
                         </div>
                         
                         <div class="order-content" @click="viewOrderDetail(order.id)">
-                            <van-image :src="order.image" fit="cover" width="80" height="80" />
-                            <div class="order-product">
-                                <h4>{{ order.productName }}</h4>
-                                <p class="order-spec">{{ order.spec }}</p>
-                                <div class="order-price-row">
+                            <van-image :src="order.image" fit="cover" width="60" height="60" radius="4" />
+                            <div class="order-info">
+                                <div class="order-title">{{ order.productName }}</div>
+                                <div class="order-meta">{{ order.spec }}</div>
+                                <div class="order-price-info">
                                     <span class="order-price">¥{{ order.price }}</span>
                                     <span class="order-count">x{{ order.count }}</span>
                                 </div>
@@ -80,7 +80,7 @@
                                 合计: <span class="total-price">¥{{ order.total }}</span>
                             </div>
                             <div class="order-actions">
-                                <van-button type="danger" size="small" round @click.stop="payNow(order.id)">立即付款</van-button>
+                                <van-button type="danger" size="small" round @click.stop="payNow(order.id)">付款</van-button>
                             </div>
                         </div>
                     </div>
@@ -91,16 +91,16 @@
                 <div class="order-list">
                     <div v-for="order in paidOrders" :key="order.id" class="order-card">
                         <div class="order-header">
-                            <span>订单号: {{ order.orderNo }}</span>
-                            <van-tag type="primary">{{ order.status }}</van-tag>
+                            <span>{{ order.orderNo }}</span>
+                            <van-tag type="primary" size="small">{{ order.status }}</van-tag>
                         </div>
                         
                         <div class="order-content" @click="viewOrderDetail(order.id)">
-                            <van-image :src="order.image" fit="cover" width="80" height="80" />
-                            <div class="order-product">
-                                <h4>{{ order.productName }}</h4>
-                                <p class="order-spec">{{ order.spec }}</p>
-                                <div class="order-price-row">
+                            <van-image :src="order.image" fit="cover" width="60" height="60" radius="4" />
+                            <div class="order-info">
+                                <div class="order-title">{{ order.productName }}</div>
+                                <div class="order-meta">{{ order.spec }}</div>
+                                <div class="order-price-info">
                                     <span class="order-price">¥{{ order.price }}</span>
                                     <span class="order-count">x{{ order.count }}</span>
                                 </div>
@@ -123,16 +123,16 @@
                 <div class="order-list">
                     <div v-for="order in shippedOrders" :key="order.id" class="order-card">
                         <div class="order-header">
-                            <span>订单号: {{ order.orderNo }}</span>
-                            <van-tag type="warning">{{ order.status }}</van-tag>
+                            <span>{{ order.orderNo }}</span>
+                            <van-tag type="warning" size="small">{{ order.status }}</van-tag>
                         </div>
                         
                         <div class="order-content" @click="viewOrderDetail(order.id)">
-                            <van-image :src="order.image" fit="cover" width="80" height="80" />
-                            <div class="order-product">
-                                <h4>{{ order.productName }}</h4>
-                                <p class="order-spec">{{ order.spec }}</p>
-                                <div class="order-price-row">
+                            <van-image :src="order.image" fit="cover" width="60" height="60" radius="4" />
+                            <div class="order-info">
+                                <div class="order-title">{{ order.productName }}</div>
+                                <div class="order-meta">{{ order.spec }}</div>
+                                <div class="order-price-info">
                                     <span class="order-price">¥{{ order.price }}</span>
                                     <span class="order-count">x{{ order.count }}</span>
                                 </div>
@@ -144,8 +144,8 @@
                                 合计: <span class="total-price">¥{{ order.total }}</span>
                             </div>
                             <div class="order-actions">
-                                <van-button type="primary" size="small" round plain @click.stop="viewLogistics(order.id)">查看物流</van-button>
-                                <van-button type="primary" size="small" round @click.stop="confirmReceive(order.id)">确认收货</van-button>
+                                <van-button type="primary" size="small" round plain @click.stop="viewLogistics(order.id)">物流</van-button>
+                                <van-button type="primary" size="small" round @click.stop="confirmReceive(order.id)">收货</van-button>
                             </div>
                         </div>
                     </div>
@@ -156,16 +156,16 @@
                 <div class="order-list">
                     <div v-for="order in completedOrders" :key="order.id" class="order-card">
                         <div class="order-header">
-                            <span>订单号: {{ order.orderNo }}</span>
-                            <van-tag type="success">{{ order.status }}</van-tag>
+                            <span>{{ order.orderNo }}</span>
+                            <van-tag type="success" size="small">{{ order.status }}</van-tag>
                         </div>
                         
                         <div class="order-content" @click="viewOrderDetail(order.id)">
-                            <van-image :src="order.image" fit="cover" width="80" height="80" />
-                            <div class="order-product">
-                                <h4>{{ order.productName }}</h4>
-                                <p class="order-spec">{{ order.spec }}</p>
-                                <div class="order-price-row">
+                            <van-image :src="order.image" fit="cover" width="60" height="60" radius="4" />
+                            <div class="order-info">
+                                <div class="order-title">{{ order.productName }}</div>
+                                <div class="order-meta">{{ order.spec }}</div>
+                                <div class="order-price-info">
                                     <span class="order-price">¥{{ order.price }}</span>
                                     <span class="order-count">x{{ order.count }}</span>
                                 </div>
@@ -177,7 +177,7 @@
                                 合计: <span class="total-price">¥{{ order.total }}</span>
                             </div>
                             <div class="order-actions">
-                                <van-button type="default" size="small" round @click.stop="buyAgain(order.id)">再次购买</van-button>
+                                <van-button type="default" size="small" round @click.stop="buyAgain(order.id)">再买</van-button>
                             </div>
                         </div>
                     </div>
