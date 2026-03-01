@@ -63,15 +63,28 @@
             </div>
             <div class="project-list">
                 <div v-for="project in projects" :key="project.id" class="project-card" @click="viewProject(project.id)">
-                    <div class="card-header">
-                        <van-tag color="#004098">{{ project.category }}</van-tag>
-                        <h4>{{ project.title }}</h4>
+                    <div class="project-image-wrapper">
+                        <van-image :src="project.image" fit="cover" class="project-image" />
+                        <van-tag color="#004098" class="project-tag">{{ project.category }}</van-tag>
                     </div>
-                    <p class="project-desc">{{ project.desc }}</p>
-                    <van-progress :percentage="project.progress" color="#004098" stroke-width="6"></van-progress>
-                    <div class="project-stats">
-                        <span>已筹 ¥{{ project.raised }}</span>
-                        <span>目标 ¥{{ project.target }}</span>
+                    <div class="project-content">
+                        <h4>{{ project.title }}</h4>
+                        <p class="project-desc">{{ project.desc }}</p>
+                        <van-progress :percentage="project.progress" color="#004098" stroke-width="6"></van-progress>
+                        <div class="project-stats">
+                            <div>
+                                <span class="stat-num">¥{{ project.raised }}</span>
+                                <span class="stat-label">已筹</span>
+                            </div>
+                            <div>
+                                <span class="stat-num">¥{{ project.target }}</span>
+                                <span class="stat-label">目标</span>
+                            </div>
+                            <div>
+                                <span class="stat-num">{{ project.progress }}%</span>
+                                <span class="stat-label">进度</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -124,16 +137,22 @@
                 <h3>基金会动态</h3>
                 <span class="more" @click="viewMoreNews">查看更多</span>
             </div>
-            <van-cell-group>
-                <van-cell
-                    v-for="news in newsList"
-                    :key="news.id"
-                    :title="news.title"
-                    :label="news.date"
-                    is-link
-                    @click="viewNews(news.id)"
-                />
-            </van-cell-group>
+            <div class="news-list">
+                <div v-for="news in newsList" :key="news.id" class="news-card" @click="viewNews(news.id)">
+                    <div class="news-image-wrapper">
+                        <van-image :src="news.image" fit="cover" class="news-image" />
+                    </div>
+                    <div class="news-content">
+                        <van-tag :type="news.tagType" size="small" class="news-tag">{{ news.tag }}</van-tag>
+                        <h4>{{ news.title }}</h4>
+                        <p class="news-summary">{{ news.summary }}</p>
+                        <div class="news-meta">
+                            <span><van-icon name="clock-o" /> {{ news.date }}</span>
+                            <span><van-icon name="eye-o" /> {{ news.views }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- 底部 Tabbar -->
@@ -155,9 +174,9 @@
                 return {
                     activeTab: 0,
                     projects: [
-                        { id: 1, title: "北航发展基金", desc: "用于支持学校各项事业发展", category: "学校发展", raised: "1285000", target: "2000000", progress: 64 },
-                        { id: 2, title: "学生奖助学金", desc: "资助品学兼优的在校学生", category: "学生资助", raised: "860000", target: "1000000", progress: 86 },
-                        { id: 3, title: "青年教师科研基金", desc: "支持青年教师开展科研工作", category: "教师发展", raised: "420000", target: "800000", progress: 53 }
+                        { id: 1, title: "北航发展基金", desc: "用于支持学校各项事业发展，包括教学科研、人才培养、校园建设等多个领域，助力北航建设世界一流大学。", category: "学校发展", raised: "1,285,000", target: "2,000,000", progress: 64, image: "https://picsum.photos/400/200?random=10" },
+                        { id: 2, title: "学生奖助学金", desc: "资助品学兼优的在校学生，帮助家庭经济困难学生顺利完成学业，奖励在学术科研、社会实践等方面表现突出的学生。", category: "学生资助", raised: "860,000", target: "1,000,000", progress: 86, image: "https://picsum.photos/400/200?random=11" },
+                        { id: 3, title: "青年教师科研基金", desc: "支持青年教师开展前沿科学研究，资助创新项目，培养学术骨干，为学校长远发展储备人才力量。", category: "教师发展", raised: "420,000", target: "800,000", progress: 53, image: "https://picsum.photos/400/200?random=12" }
                     ],
                     products: [
                         { id: 1, name: "北航纪念卫衣", price: 168, image: "https://picsum.photos/200/200?random=1" },
@@ -171,9 +190,10 @@
                         { id: 3, title: "毕业十周年返校活动", date: "2026-04-10", location: "北航校园", status: "报名中" }
                     ],
                     newsList: [
-                        { id: 1, title: "北航教育基金会2025年度工作总结会议顺利召开", date: "2026-01-20" },
-                        { id: 2, title: "感谢张校友捐赠500万元设立奖学金", date: "2026-01-15" },
-                        { id: 3, title: "北航文创产品新春特惠活动开启", date: "2026-01-10" }
+                        { id: 1, title: "北航教育基金会2025年度工作总结会议顺利召开", date: "2026-01-20", summary: "会议总结了过去一年基金会各项工作成果，表彰了突出贡献者，并对2026年工作进行了部署。", tag: "重要会议", tagType: "danger", views: 1256, image: "https://picsum.photos/300/200?random=20" },
+                        { id: 2, title: "感谢张校友捐赠500万元设立奖学金", date: "2026-01-15", summary: "我校1985届校友张先生慷慨捐赠500万元，设立"启航奖学金"，用于奖励品学兼优的本科生。", tag: "捐赠动态", tagType: "primary", views: 2341, image: "https://picsum.photos/300/200?random=21" },
+                        { id: 3, title: "北航文创产品新春特惠活动开启", date: "2026-01-10", summary: "为回馈广大校友和师生，基金会推出新春特惠活动，全场文创产品8折优惠，限时抢购！", tag: "活动公告", tagType: "success", views: 1890, image: "https://picsum.photos/300/200?random=22" },
+                        { id: 4, title: "2026年校友返校日活动预告", date: "2026-01-05", summary: "诚邀各届校友于2026年4月重返母校，共叙情谊，共谋发展。报名通道现已开启。", tag: "校友活动", tagType: "warning", views: 3422, image: "https://picsum.photos/300/200?random=23" }
                     ]
                 };
             },
