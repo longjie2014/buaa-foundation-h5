@@ -45,15 +45,6 @@
             </van-swipe-item>
         </van-swipe>
 
-        <!-- 公告通知 -->
-        <van-notice-bar
-            left-icon="volume-o"
-            text="感谢张校友捐赠500万元设立「启航奖学金」！| 2026年校友返校日活动报名通道现已开启 | 北航文创新春特惠活动火热进行中"
-            scrollable
-            background="#ecf9ff"
-            color="#1989fa"
-        />
-
         <!-- 快捷入口 -->
         <div class="quick-menu">
             <van-grid :column-num="4" :border="false">
@@ -105,29 +96,20 @@
                 <h3>文创产品</h3>
                 <span class="more" @click="goStore">查看更多</span>
             </div>
-            <div class="cultural-list">
-                <div v-for="product in products" :key="product.id" class="cultural-card" @click="viewProduct(product.id)">
-                    <div class="cultural-image-wrapper">
-                        <van-image :src="product.image" fit="cover" class="cultural-image" />
-                        <div v-if="product.badge" class="cultural-badge">{{ product.badge }}</div>
-                    </div>
-                    <div class="cultural-content">
-                        <h4 class="cultural-title">{{ product.name }}</h4>
-                        <div class="cultural-tags">
-                            <van-tag v-for="(tag, idx) in product.tags" :key="idx" 
-                                :type="tag.type || 'default'" 
-                                size="small"
-                                class="cultural-tag">
-                                {{ tag.text }}
-                            </van-tag>
-                        </div>
-                        <div class="cultural-price-row">
-                            <span class="cultural-price">¥{{ product.price }}</span>
-                            <span v-if="product.originalPrice" class="cultural-original-price">¥{{ product.originalPrice }}</span>
+            <van-grid :column-num="2" :gutter="10">
+                <van-grid-item v-for="product in products.slice(0,4)" :key="product.id" @click="viewProduct(product.id)">
+                    <div style="padding: 10px;">
+                        <van-image :src="product.image" fit="cover" style="width: 100%; height: 120px; border-radius: 8px;" />
+                        <div style="margin-top: 8px;">
+                            <div style="font-size: 14px; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ product.name }}</div>
+                            <div style="margin-top: 4px;">
+                                <span style="font-size: 16px; color: #ff6b6b; font-weight: 600;">¥{{ product.price }}</span>
+                                <span v-if="product.originalPrice" style="font-size: 12px; color: #999; text-decoration: line-through; margin-left: 5px;">¥{{ product.originalPrice }}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </van-grid-item>
+            </van-grid>
         </div>
 
         <!-- 校友活动 -->
@@ -160,22 +142,20 @@
                 <h3>基金会动态</h3>
                 <span class="more" @click="viewMoreNews">查看更多</span>
             </div>
-            <div class="news-list">
-                <div v-for="news in newsList" :key="news.id" class="news-card" @click="viewNews(news.id)">
-                    <div class="news-image-wrapper">
-                        <van-image :src="news.image" fit="cover" class="news-image" />
-                    </div>
-                    <div class="news-content">
-                        <van-tag :type="news.tagType" size="small" class="news-tag">{{ news.tag }}</van-tag>
-                        <h4>{{ news.title }}</h4>
-                        <p class="news-summary">{{ news.summary }}</p>
-                        <div class="news-meta">
-                            <span><van-icon name="clock-o" /> {{ news.date }}</span>
-                            <span><van-icon name="eye-o" /> {{ news.views }}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <van-cell-group>
+                <van-cell
+                    v-for="news in newsList.slice(0,4)"
+                    :key="news.id"
+                    :title="news.title"
+                    :label="news.date"
+                    is-link
+                    @click="viewNews(news.id)"
+                >
+                    <template #icon>
+                        <van-tag :type="news.tagType" size="small">{{ news.tag }}</van-tag>
+                    </template>
+                </van-cell>
+            </van-cell-group>
         </div>
 
         <!-- 底部 Tabbar -->

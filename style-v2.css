@@ -1,35 +1,16 @@
-/* 安全区域变量 */
 :root {
-    --safe-area-top: env(safe-area-inset-top);
-    --safe-area-bottom: env(safe-area-inset-bottom);
     --buaa-blue: #004098;
-    --buaa-light-blue: #0066cc;
-    --buaa-dark-blue: #003366;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-}
-
-html {
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    background-color: #f7f8fa;
-    color: #333;
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
-}
-
-#app {
-    min-height: 100vh;
-    padding-bottom: 50px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f5f5f5;
 }
 
 /* 导航栏 */
@@ -37,22 +18,9 @@ body {
     background-color: var(--buaa-blue) !important;
 }
 
-.van-nav-bar__title {
-    color: #fff !important;
-}
-
+.van-nav-bar__title,
 .van-nav-bar .van-icon {
     color: #fff !important;
-}
-
-@supports (padding-top: env(safe-area-inset-top)) {
-    .van-nav-bar--fixed {
-        padding-top: env(safe-area-inset-top);
-    }
-    
-    .van-tabbar--fixed {
-        padding-bottom: env(safe-area-inset-bottom);
-    }
 }
 
 /* 轮播图 */
@@ -75,20 +43,17 @@ body {
     font-size: 28px;
     font-weight: 600;
     margin-bottom: 10px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 .banner-item p {
     font-size: 16px;
     margin-bottom: 20px;
-    opacity: 0.95;
 }
 
 .banner-btn {
     background: rgba(255,255,255,0.9) !important;
     color: var(--buaa-blue) !important;
     border: none !important;
-    font-weight: 500;
 }
 
 /* 快捷入口 */
@@ -97,7 +62,6 @@ body {
     margin: 10px;
     border-radius: 8px;
     padding: 10px 0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 .quick-menu .van-grid-item__icon {
@@ -105,24 +69,12 @@ body {
     font-size: 28px;
 }
 
-.quick-menu .van-grid-item__text {
-    font-size: 13px;
-    color: #333;
-}
-
-/* 公告通知样式优化 */
-.van-notice-bar {
-    margin: 0 10px;
-    border-radius: 8px;
-}
-
-/* 区块样式 */
+/* 区块 */
 .section {
     background: white;
     margin: 10px;
     border-radius: 8px;
     padding: 15px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 .section-header {
@@ -130,281 +82,106 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #f0f0f0;
 }
 
 .section-header h3 {
     font-size: 18px;
     font-weight: 600;
-    color: #333;
 }
 
 .section-header .more {
     font-size: 14px;
     color: #999;
-    cursor: pointer;
 }
 
-/* 捐赠项目卡片 */
+/* 捐赠项目 */
 .project-card {
-    background: white;
-    border-radius: 12px;
+    background: #fafafa;
+    border-radius: 8px;
+    margin-bottom: 10px;
     overflow: hidden;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
 }
 
 .project-image-wrapper {
     position: relative;
-    height: 160px;
-    overflow: hidden;
-    background-color: #f0f0f0;
-}
-
-.project-image {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
+    height: 150px;
 }
 
 .project-image-wrapper .project-tag {
     position: absolute;
     top: 10px;
     left: 10px;
-    z-index: 2;
 }
 
 .project-content {
-    padding: 15px;
+    padding: 12px;
 }
 
 .project-content h4 {
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 600;
-    color: #333;
     margin-bottom: 8px;
-    line-height: 1.4;
 }
 
 .project-desc {
-    font-size: 14px;
+    font-size: 13px;
     color: #666;
-    line-height: 1.6;
-    margin-bottom: 15px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    word-break: break-all;
+    margin-bottom: 10px;
+    line-height: 1.5;
 }
 
 .project-stats {
-    display: -webkit-flex;
     display: flex;
-    -webkit-justify-content: space-between;
     justify-content: space-between;
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid #f0f0f0;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    text-align: center;
 }
 
 .project-stats > div {
-    -webkit-flex: 1;
     flex: 1;
-    text-align: center;
-    min-width: 0;
 }
 
 .project-stats .stat-num {
-    display: block;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--buaa-blue);
-    margin-bottom: 4px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .project-stats .stat-label {
-    display: block;
     font-size: 12px;
     color: #999;
 }
 
-/* 文创产品 - 卡片式布局 */
-.cultural-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.cultural-card {
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.cultural-card:active {
-    transform: scale(0.98);
-}
-
-.cultural-image-wrapper {
-    position: relative;
-    height: 180px;
-    overflow: hidden;
-}
-
-.cultural-image {
-    width: 100%;
-    height: 100%;
-}
-
-.cultural-badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
-    color: white;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 500;
-    z-index: 1;
-}
-
-.cultural-content {
-    padding: 15px;
-}
-
-.cultural-title {
-    font-size: 17px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 10px;
-    line-height: 1.4;
-}
-
-.cultural-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 12px;
-}
-
-.cultural-tag {
-    font-size: 12px;
-}
-
-.cultural-price-row {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-}
-
-.cultural-price {
-    font-size: 20px;
-    font-weight: 700;
-    color: #ff6b6b;
-}
-
-.cultural-original-price {
-    font-size: 14px;
-    color: #999;
-    text-decoration: line-through;
-}
-
-/* 底部 Tabbar */
+/* 底部导航 */
 .van-tabbar-item--active {
     color: var(--buaa-blue) !important;
 }
 
-/* 响应式 */
-@media screen and (max-width: 375px) {
-    .banner-item h2 {
-        font-size: 24px;
-    }
-    
-    .banner-item p {
-        font-size: 14px;
-    }
-    
-    .section-header h3 {
-        font-size: 16px;
-    }
-    
-    .project-stats .stat-num {
-        font-size: 14px;
-    }
-    
-    .project-content h4 {
-        font-size: 16px;
-    }
-}
-
-/* iOS Safari 专用优化 */
-@supports (-webkit-touch-callout: none) {
-    .project-card {
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-    }
-    
-    .project-image-wrapper {
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
-    }
-    
-    .project-stats {
-        -webkit-flex-wrap: nowrap;
-        flex-wrap: nowrap;
-    }
-    
-    .project-stats > div {
-        -webkit-flex: 1 1 auto;
-        flex: 1 1 auto;
-        min-width: 0;
-    }
-}
-
-/* ========== 我的页面样式 ========== */
+/* 我的页面 */
 .user-header {
     background: linear-gradient(135deg, #004098 0%, #0066cc 100%);
     padding: 40px 20px 20px;
     color: white;
-    margin-bottom: 12px;
 }
 
 .user-info {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 15px;
     position: relative;
-    margin-bottom: 24px;
-}
-
-.user-info .avatar {
-    border: 3px solid rgba(255,255,255,0.3);
-    flex-shrink: 0;
+    margin-bottom: 20px;
 }
 
 .user-text h2 {
     font-size: 20px;
     font-weight: 600;
-    margin-bottom: 4px;
-    color: white;
 }
 
 .user-text p {
     font-size: 14px;
     opacity: 0.9;
-    color: white;
 }
 
 .setting-icon {
@@ -412,37 +189,29 @@ body {
     right: 0;
     top: 0;
     font-size: 24px;
-    color: white;
-    cursor: pointer;
 }
 
 .user-stats {
     display: flex;
     justify-content: space-around;
-    padding-top: 20px;
+    padding-top: 15px;
     border-top: 1px solid rgba(255,255,255,0.2);
 }
 
 .user-stats .stat-item {
     text-align: center;
-    flex: 1;
 }
 
 .user-stats .stat-num {
-    display: block;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 700;
-    margin-bottom: 4px;
-    color: white;
 }
 
 .user-stats .stat-label {
-    display: block;
-    font-size: 13px;
+    font-size: 12px;
     opacity: 0.9;
-    color: white;
 }
 
 .menu-section {
-    margin-bottom: 12px;
+    margin-top: 10px;
 }
