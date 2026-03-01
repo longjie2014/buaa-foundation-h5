@@ -110,6 +110,12 @@ body {
     color: #333;
 }
 
+/* 公告通知样式优化 */
+.van-notice-bar {
+    margin: 0 10px;
+    border-radius: 8px;
+}
+
 /* 区块样式 */
 .section {
     background: white;
