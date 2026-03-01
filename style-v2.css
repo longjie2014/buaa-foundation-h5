@@ -215,3 +215,17 @@ body {
 .menu-section {
     margin-top: 10px;
 }
+
+/* 文创产品卡片列表 */
+.product-card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.product-card-item {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
