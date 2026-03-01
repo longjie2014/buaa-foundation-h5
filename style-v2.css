@@ -372,3 +372,77 @@ body {
         min-width: 0;
     }
 }
+
+/* ========== 我的页面样式 ========== */
+.user-header {
+    background: linear-gradient(135deg, #004098 0%, #0066cc 100%);
+    padding: 40px 20px 20px;
+    color: white;
+    margin-bottom: 12px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.user-info .avatar {
+    border: 3px solid rgba(255,255,255,0.3);
+    flex-shrink: 0;
+}
+
+.user-text h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: white;
+}
+
+.user-text p {
+    font-size: 14px;
+    opacity: 0.9;
+    color: white;
+}
+
+.setting-icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+}
+
+.user-stats {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+.user-stats .stat-item {
+    text-align: center;
+    flex: 1;
+}
+
+.user-stats .stat-num {
+    display: block;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: white;
+}
+
+.user-stats .stat-label {
+    display: block;
+    font-size: 13px;
+    opacity: 0.9;
+    color: white;
+}
+
+.menu-section {
+    margin-bottom: 12px;
+}
