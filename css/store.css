@@ -1,58 +1,264 @@
-/* 文创商城样式 */
+/* 文创商城样式 - 优化版 */
 
 /* 搜索栏 */
 .search-bar {
-    padding: 10px;
+    padding: 10px 12px;
     background: white;
+    position: sticky;
+    top: 46px;
+    z-index: 99;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
-/* 商品网格 - 3列 */
+/* 分类标题 - 优化样式 */
+.category-title {
+    text-align: center;
+    padding: 28px 0 18px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #1a1a1a;
+    position: relative;
+    letter-spacing: 1px;
+}
+
+.category-title::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 3px;
+    background: linear-gradient(90deg, #004098, #0066cc);
+    vertical-align: middle;
+    margin-right: 12px;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0, 64, 152, 0.3);
+}
+
+.category-title::after {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 3px;
+    background: linear-gradient(90deg, #0066cc, #004098);
+    vertical-align: middle;
+    margin-left: 12px;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0, 64, 152, 0.3);
+}
+
+/* 商品网格 - 2 列布局 */
 .store-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    padding: 10px;
-    background: #f5f5f5;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 12px;
+    background: #f5f6f7;
 }
 
+/* 商品卡片 - 增强样式 */
 .store-item {
     background: white;
-    border-radius: 8px;
+    border-radius: 16px;
     overflow: hidden;
-    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    cursor: pointer;
 }
 
+.store-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.store-item:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* 商品图片 */
 .store-img {
     width: 100%;
     aspect-ratio: 1;
     object-fit: cover;
     display: block;
-    background: #fff;
+    background: #f7f8fa;
+    transition: transform 0.3s ease;
 }
 
+.store-item:hover .store-img {
+    transform: scale(1.05);
+}
+
+/* 商品信息区域 */
 .store-info {
-    padding: 8px;
+    padding: 14px 12px;
 }
 
 .store-info h4 {
-    font-size: 12px;
+    font-size: 14px;
     color: #333;
-    white-space: nowrap;
+    margin: 0 0 10px 0;
+    line-height: 1.5;
+    height: 42px;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-weight: 500;
 }
 
-/* 分类标题 */
-.category-title {
-    text-align: center;
-    padding: 20px 0 10px;
+/* 价格区域 */
+.store-price {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.price-current {
+    font-size: 20px;
+    font-weight: 700;
+    color: #e02424;
+    letter-spacing: -0.5px;
+}
+
+.price-current::before {
+    content: "¥";
     font-size: 14px;
+    margin-right: 2px;
+}
+
+.price-original {
+    font-size: 12px;
+    color: #999;
+    text-decoration: line-through;
+    opacity: 0.8;
+}
+
+/* 商品元信息 */
+.store-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: #999;
+    margin-bottom: 12px;
+    padding: 6px 0;
+    border-top: 1px solid #f0f0f0;
+}
+
+.store-sales {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #ff6b6b;
+    font-weight: 500;
+}
+
+.store-stock {
     color: #666;
 }
 
-.category-title::before,
-.category-title::after {
-    content: "-";
-    margin: 0 8px;
-    color: #ccc;
+/* 加入购物车按钮 - 增强样式 */
+.add-cart-btn {
+    width: 100%;
+    height: 36px;
+    background: linear-gradient(135deg, #004098 0%, #0066cc 100%);
+    color: white;
+    border: none;
+    border-radius: 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 64, 152, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    letter-spacing: 0.5px;
+}
+
+.add-cart-btn:hover {
+    box-shadow: 0 6px 16px rgba(0, 64, 152, 0.4);
+    transform: translateY(-2px);
+}
+
+.add-cart-btn:active {
+    transform: scale(0.96);
+    box-shadow: 0 2px 8px rgba(0, 64, 152, 0.2);
+}
+
+.add-cart-btn::before {
+    content: "🛒";
+    font-size: 16px;
+}
+
+/* 售罄状态 */
+.store-item.out-of-stock {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.store-item.out-of-stock .add-cart-btn {
+    background: linear-gradient(135deg, #999 0%, #bbb 100%);
+    box-shadow: none;
+}
+
+/* 加载动画 */
+.loading-skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* 响应式优化 */
+@media (min-width: 768px) {
+    .store-grid {
+        gap: 16px;
+        padding: 16px;
+    }
+    
+    .store-info h4 {
+        font-size: 15px;
+        height: 45px;
+    }
+    
+    .price-current {
+        font-size: 22px;
+    }
+}
+
+/* 暗黑模式支持 */
+@media (prefers-color-scheme: dark) {
+    .store-grid {
+        background: #1a1a1a;
+    }
+    
+    .store-item {
+        background: #2a2a2a;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    
+    .store-info h4 {
+        color: #e0e0e0;
+    }
+    
+    .store-meta {
+        border-top-color: #3a3a3a;
+    }
+    
+    .category-title {
+        color: #e0e0e0;
+    }
 }

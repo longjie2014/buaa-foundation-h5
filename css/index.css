@@ -142,3 +142,42 @@
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
+
+/* 校友活动和基金会动态 - 优化 cell 样式 */
+.section .van-cell-group {
+    --van-cell-horizontal-padding: 0;
+}
+
+.section .van-cell {
+    padding: 12px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.section .van-cell:last-child {
+    border-bottom: none;
+}
+
+.section .van-cell__title {
+    font-size: 15px;
+    color: #333;
+}
+
+.section .van-cell__label {
+    font-size: 13px;
+    color: #999;
+    padding-top: 6px;
+}
+
+/* 活动标签 */
+.activity-tag {
+    margin-right: 10px;
+    font-size: 12px;
+    padding: 2px 8px;
+}
+
+/* 动态标签 */
+.section .van-cell .van-tag {
+    margin-right: 10px;
+    font-size: 11px;
+    padding: 2px 6px;
+}

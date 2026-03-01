@@ -126,7 +126,7 @@
                     is-link
                     @click="viewActivity(activity.id)"
                 >
-                    <template #icon>
+                    <template #right-icon>
                         <van-tag :type="activity.status === '报名中' ? 'success' : 'default'" class="activity-tag">
                             {{ activity.status }}
                         </van-tag>
@@ -150,7 +150,7 @@
                     is-link
                     @click="viewNews(news.id)"
                 >
-                    <template #icon>
+                    <template #right-icon>
                         <van-tag :type="news.tagType" size="small">{{ news.tag }}</van-tag>
                     </template>
                 </van-cell>
